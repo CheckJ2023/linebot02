@@ -7,6 +7,8 @@ namespace linebot02.Services;
 
 public class RestaurantService {
 
+
+
     private static readonly MySqlConnectionStringBuilder builder 
     = new()
     {
@@ -25,12 +27,12 @@ public class RestaurantService {
     private const string columnname5="description";
 
     //獲得資料
-    public async Task<List<RestaurantDTO>?> GetAll()
+    public async Task<List<RestaurantDAO>?> GetAll()
     {
         // Console.WriteLine(builder.ConnectionString);
         
         try{
-            var restaurantData = new List<RestaurantDTO>();
+            var restaurantData = new List<RestaurantDAO>();
             using (var conn = new MySqlConnection(builder.ConnectionString))
             {
                 // Console.WriteLine("Opening connection");
@@ -55,7 +57,7 @@ public class RestaurantService {
                             //     "Reading from table=({0}, {1})",
                             //     reader.GetInt64(0),
                             //     reader.GetString(1)));
-                            var rs = new RestaurantDTO();
+                            var rs = new RestaurantDAO();
                             rs.RestaurantId = reader.GetInt64(0);
                             rs.RestaurantName = !reader.IsDBNull(1)?
                              reader.GetString(1):"";
@@ -68,7 +70,7 @@ public class RestaurantService {
                             
                             restaurantData.Add(rs);
                         }
-                        foreach (RestaurantDTO r in restaurantData){
+                        foreach (RestaurantDAO r in restaurantData){
                         // Console.WriteLine($"ID={r.restaurantId},NAME={r.restaurantName}");
                         }
                     }
@@ -91,10 +93,10 @@ public class RestaurantService {
     }
 
     //獲得指定的資料
-    public async Task<RestaurantDTO?> Get(Int64 id)
+    public async Task<RestaurantDAO?> Get(Int64 id)
     {
         // Console.WriteLine(builder.ConnectionString);
-        var rs = new RestaurantDTO();
+        var rs = new RestaurantDAO();
 
         try{
             
@@ -148,7 +150,7 @@ public class RestaurantService {
     }
 
     //新增資料
-    public async Task<string> Add(RestaurantDTO restaurantData){
+    public async Task<string> Add(RestaurantDAO restaurantData){
         try{
             using (var conn = new MySqlConnection(builder.ConnectionString))
                 {
@@ -190,7 +192,7 @@ public class RestaurantService {
     }
 
     //更新資料
-    public async Task<string> Update(RestaurantDTO restaurantData){
+    public async Task<string> Update(RestaurantDAO restaurantData){
         try{
             using (var conn = new MySqlConnection(builder.ConnectionString))
             {

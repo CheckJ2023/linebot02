@@ -1,6 +1,6 @@
 namespace linebot02.Models;
 
-public class RestaurantDTO
+public class RestaurantDAO
 
 {
     public long RestaurantId { get; set; }
