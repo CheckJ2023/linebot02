@@ -6,13 +6,16 @@ public static class HttpRequestConfiguration
 {
     public static WebApplication ConfigurationHttpRequest(this WebApplication app)
     {
-        //for nginx
-        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        if (app.Environment.EnvironmentName.Equals("Production"))
         {
-            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-        });
+            //for nginx
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
-        app.UseAuthentication();
+            app.UseAuthentication();
+        }
         return app;
     }
 }

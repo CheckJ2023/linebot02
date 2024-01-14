@@ -1,4 +1,5 @@
 using linebot02.Endpoints;
+
 namespace linebot02.Startup;
 
 public static class MapEndpoints
@@ -6,7 +7,12 @@ public static class MapEndpoints
     public static WebApplication MapAllEndpoints(this WebApplication app)
     {
         app.MapGet("/",()=>"Hello World");
-        app.MapRestaurantEndpoints();
+        app.MapChatBotEndpoints();
+        
+        if (app.Environment.IsDevelopment())
+        {
+            // app.MapRestaurantEndpoints();
+        }
 
         return app;
     }
